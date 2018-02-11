@@ -25,11 +25,10 @@ class ServerConnection(threading.Thread):
 
             data = list(self.socket.recv(self.packet_size))
             self.socket.close()
-        except socket.timeout:
+            if data[0] == '\x01':
+                self.connected = True
+                for c in range(1, len(data)):
+                    self.string += c
+            print(data)
+        except Exception:
             self.fail = True
-        if data[0] == '\x01':
-            self.connected = True
-            for c in range(1, len(data)):
-                self.string += c
-        print (data)
-

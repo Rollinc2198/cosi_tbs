@@ -28,15 +28,15 @@ def text_render(font_type, text, window, x, y, border, center):
     text_outline = font_type.render(text, True, black)
 
     if center:
-        xSub = text_outline.get_width() / 2
+        x_sub = text_outline.get_width() / 2
     else:
-        xSub = 0
+        x_sub = 0
 
-    window.blit(text_outline, [x - xSub - border, y + border])
-    window.blit(text_outline, [x - xSub + border, y - border])
-    window.blit(text_outline, [x - xSub - border, y - border])
-    window.blit(text_outline, [x - xSub + border, y + border])
-    window.blit(text_outline, [x - xSub - border, y])
-    window.blit(text_outline, [x - xSub + border, y])
-    window.blit(text_outline, [x - xSub, y - border])
-    window.blit(text_outline, [x - xSub, y + border])
+    window.blit(text_outline, [x - x_sub - border, y + border])
+    window.blit(text_outline, [x - x_sub + border, y - border])
+    window.blit(text_outline, [x - x_sub - border, y - border])
+    window.blit(text_outline, [x - x_sub + border, y + border])
+    window.blit(text_outline, [x - x_sub - border, y])
+    window.blit(text_outline, [x - x_sub + border, y])
+    window.blit(text_outline, [x - x_sub, y - border])
+    window.blit(text_outline, [x - x_sub, y + border])
