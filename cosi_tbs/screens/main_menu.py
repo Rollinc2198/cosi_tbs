@@ -1,17 +1,23 @@
 import pygame
 from pygame.locals import *
 
-import cosi_tbs
 from cosi_tbs.gui_objects import *
+from cosi_tbs import globals
 
-def main_menu(window, scaledWin):
-    clock = pygame.time.Clock()
+def main_menu(window, scaledWin, winRatio):
+    background = pygame.image.load("/home/carter/PycharmProjects/cosi_tbs/cosi_tbs/images/white.jpg")
 
-    winSize = window.get_size()
+    textTitle = globals.fontTitle.render("COSI Turn-Based Strategy", True, globals.white)
+    textTitleOutline = globals.fontTitle.render("COSI Turn-Based Strategy", True, globals.black)
 
     buttons = [
-        Button(0, 0, "Exit")
+        Button(window, window.get_width() / 2 - Button.width / 2, 300, "Host Game"),
+        Button(window, window.get_width() / 2 - Button.width / 2, 300 + Button.height + 50, "Join Game"),
+        Button(window, window.get_width() / 2 - Button.width / 2, 300 + (Button.height + 50) * 2, "Settings"),
+        Button(window, window.get_width() / 2 - Button.width / 2, 300 + (Button.height + 50) * 3, "Exit")
     ]
+    allsprites = []
+    allsprites.extend(buttons)
 
     while True:
         # Events
@@ -24,16 +30,34 @@ def main_menu(window, scaledWin):
             if event.type == MOUSEBUTTONDOWN:
                 # Detect Mouse Position
                 posMouse = pygame.mouse.get_pos()
-                posMouse = (posMouse[0] / winSize[0], posMouse[1] / winSize[1])
+                posMouse = (posMouse[0] / winRatio[0], posMouse[1] / winRatio[1])
 
                 # Handle Button Clicks
                 for b in buttons:
-                    if b.rect.collidepoint(posMouse):
+                    if (posMouse[0] > b.x and posMouse[0] < b.x + b.width) and (posMouse[1] > b.y and posMouse[1] < b.y + b.height):
+                        if b.text == "Host Game":
+                            return 1
+                        if b.text == "Join Game":
+                            return 2
+                        if b.text == "Settings":
+                            return 3
                         if b.text == "Exit":
-                            return
+                            pygame.quit()
+                            exit()
 
         # Updating
-        window.fill((255, 255, 255))
+        window.blit(background, (0,0))
+        window.blit(textTitleOutline, [window.get_width() / 2 - textTitleOutline.get_width() / 2 - 5, 25])
+        window.blit(textTitleOutline, [window.get_width() / 2 - textTitleOutline.get_width() / 2 + 5, 15])
+        window.blit(textTitleOutline, [window.get_width() / 2 - textTitleOutline.get_width() / 2 - 5, 15])
+        window.blit(textTitleOutline, [window.get_width() / 2 - textTitleOutline.get_width() / 2 + 5, 25])
+        window.blit(textTitleOutline, [window.get_width() / 2 - textTitleOutline.get_width() / 2 - 5, 20])
+        window.blit(textTitleOutline, [window.get_width() / 2 - textTitleOutline.get_width() / 2 + 5, 20])
+        window.blit(textTitleOutline, [window.get_width() / 2 - textTitleOutline.get_width() / 2, 15])
+        window.blit(textTitleOutline, [window.get_width() / 2 - textTitleOutline.get_width() / 2, 25])
+        window.blit(textTitle, [window.get_width() / 2 - textTitle.get_width() / 2, 20])
+        for s in allsprites:
+            s.render()
         pygame.transform.smoothscale(window, scaledWin.get_size(), scaledWin)
         pygame.display.update()
-        clock.tick(60)
+        globals.clock.tick(60)
