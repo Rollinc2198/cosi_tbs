@@ -38,7 +38,7 @@ def lobby(window, scaled_win, win_ratio):
                         if b.text == "Back to Main Menu":
                             return 0
                         if b.text == "Start Game":
-                            return 3
+                            return 5
 
         window.blit(globals.background, (0, 0))
 

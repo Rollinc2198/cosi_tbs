@@ -1,63 +1,35 @@
-import queue
 import threading
-import time
-
-exitFlag = 0
+import socket
 
 
-class myThread(threading.Thread):
-    def __init__(self, threadID, name, q):
+class ServerConnection(threading.Thread):
+    packet_size = 512
+
+    def __init__(self, host_name, init, ip, port):
         threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-        self.q = q
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.setDaemon(True)
+
+        self.host_name = host_name
+        self.init = init
+        self.ip = ip
+        self.port = port
+        self.string = ""
+        self.connected = False
+        self.fail = False
 
     def run(self):
-        print ("Starting " + self.name)
-        process_data(self.name, self.q)
-        print ("Exiting " + self.name)
+        try:
+            self.socket.connect((self.ip, self.port))
+            self.socket.send((self.init + self.host_name).encode('utf-8'))
 
+            data = list(self.socket.recv(self.packet_size))
+            self.socket.close()
+        except socket.timeout:
+            self.fail = True
+        if data[0] == '\x01':
+            self.connected = True
+            for c in range(1, len(data)):
+                self.string += c
+        print (data)
 
-def process_data(threadName, q):
-    while not exitFlag:
-        queueLock.acquire()
-        if not workQueue.empty():
-            data = q.get()
-            queueLock.release()
-            print("%s processing %s" % (threadName, data))
-    else:
-        queueLock.release()
-    time.sleep(1)
-
-
-threadList = ["Thread-1", "Thread-2", "Thread-3"]
-nameList = ["One", "Two", "Three", "Four", "Five"]
-queueLock = threading.Lock()
-workQueue = queue.Queue(10)
-threads = []
-threadID = 1
-
-# Create new threads
-for tName in threadList:
-    thread = myThread(threadID, tName, workQueue)
-    thread.start()
-    threads.append(thread)
-    threadID += 1
-
-# Fill the queue
-queueLock.acquire()
-for word in nameList:
-    workQueue.put(word)
-queueLock.release()
-
-# Wait for queue to empty
-while not workQueue.empty():
-    pass
-
-# Notify threads it's time to exit
-exitFlag = 1
-
-# Wait for all threads to complete
-for t in threads:
-    t.join()
-print("Exiting Main Thread")

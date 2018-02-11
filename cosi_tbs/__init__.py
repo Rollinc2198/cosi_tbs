@@ -23,7 +23,13 @@ while True:
         screen = main_menu(window, scaledWin, (widthRatio, heightRatio))
     elif screen == 1:
         screen = host_game(window, scaledWin, (widthRatio, heightRatio))
-        if screen == 2:
-            screen = lobby(window, scaledWin, (widthRatio, heightRatio))
-            if screen == 3:
-                screen = 0
+    elif screen == 2:
+        screen = join_game(window, scaledWin, (widthRatio, heightRatio))
+    elif screen == 3:
+        print ("screen is not 3")
+        screen = 0
+    elif screen == 4:
+        screen = lobby(window, scaledWin, (widthRatio, heightRatio))
+    elif screen == 5:
+        print("screen is not 5")
+        screen = 0

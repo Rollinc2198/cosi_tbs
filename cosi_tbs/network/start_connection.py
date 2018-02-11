@@ -1,9 +1,7 @@
-import _thread
-from cosi_tbs.network import server_connection
+from cosi_tbs.network import *
 
 
-def start_connection():
-    try:
-        _thread.start_new_thread(server_connection)
-    except:
-        print("Error: unable to start thread")
+def start_connection(host_name, init):
+    thread = ServerConnection(host_name, init, "192.168.0.31", 6666)
+    thread.start()
+    return thread

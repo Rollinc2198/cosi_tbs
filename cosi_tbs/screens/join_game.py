@@ -6,7 +6,7 @@ from cosi_tbs.network import *
 from cosi_tbs import globals
 
 
-def host_game(window, scaled_win, win_ratio):
+def join_game(window, scaled_win, win_ratio):
     buttons = [
         Button(window, 10, 10, "Back to Main Menu"),
         Button(window, window.get_width() / 2 - Button.width / 2, window.get_height() - 200, "Submit")
@@ -35,7 +35,7 @@ def host_game(window, scaled_win, win_ratio):
                         if b.text == "Back to Main Menu":
                             return 0
                         if b.text == "Submit":
-                            thread = start_connection(text_box.text, '\x00')
+                            thread = start_connection(text_box.text, '\x01')
                             while not thread.connected:
                                 if thread.fail:
                                     pygame.quit()
