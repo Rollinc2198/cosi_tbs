@@ -305,7 +305,7 @@ class TextBox(pygame.sprite.Sprite):
                         self.is_typing = False
 
     def render(self):
-        globals.text_render(globals.fontSub, self.label, self.window, self.window.get_width() / 2, self.y - self.title.get_height() - 10, 2)
+        globals.text_render(globals.fontSub, self.label, self.window, self.window.get_width() / 2, self.y - self.title.get_height() - 10, 2, True)
         self.window.blit(self.title, [self.window.get_width() / 2 - self.title.get_width() / 2, self.y - self.title.get_height() - 10])
         text_surface = globals.font.render(self.text, True, globals.black)
         pygame.draw.rect(self.window, globals.black, Rect(self.x, self.y, self.width, self.height))

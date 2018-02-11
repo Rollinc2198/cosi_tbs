@@ -15,14 +15,28 @@ background = pygame.image.load("/home/carter/PycharmProjects/cosi_tbs/cosi_tbs/i
 
 maxNameLength = 15
 
-def text_render(font_type, text, window, x, y, border):
+players = []
+threads = []
+
+
+def init():
+    players.clear()
+    threads.clear()
+
+
+def text_render(font_type, text, window, x, y, border, center):
     text_outline = font_type.render(text, True, black)
 
-    window.blit(text_outline, [x - text_outline.get_width() / 2 - border, y + border])
-    window.blit(text_outline, [x - text_outline.get_width() / 2 + border, y - border])
-    window.blit(text_outline, [x - text_outline.get_width() / 2 - border, y - border])
-    window.blit(text_outline, [x - text_outline.get_width() / 2 + border, y + border])
-    window.blit(text_outline, [x - text_outline.get_width() / 2 - border, y])
-    window.blit(text_outline, [x - text_outline.get_width() / 2 + border, y])
-    window.blit(text_outline, [x - text_outline.get_width() / 2, y - border])
-    window.blit(text_outline, [x - text_outline.get_width() / 2, y + border])
+    if center:
+        xSub = text_outline.get_width() / 2
+    else:
+        xSub = 0
+
+    window.blit(text_outline, [x - xSub - border, y + border])
+    window.blit(text_outline, [x - xSub + border, y - border])
+    window.blit(text_outline, [x - xSub - border, y - border])
+    window.blit(text_outline, [x - xSub + border, y + border])
+    window.blit(text_outline, [x - xSub - border, y])
+    window.blit(text_outline, [x - xSub + border, y])
+    window.blit(text_outline, [x - xSub, y - border])
+    window.blit(text_outline, [x - xSub, y + border])

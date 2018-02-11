@@ -19,6 +19,11 @@ screen = 0
 
 while True:
     if screen == 0:
+        globals.init()
         screen = main_menu(window, scaledWin, (widthRatio, heightRatio))
     elif screen == 1:
         screen = host_game(window, scaledWin, (widthRatio, heightRatio))
+        if screen == 2:
+            screen = lobby(window, scaledWin, (widthRatio, heightRatio))
+            if screen == 3:
+                screen = 0

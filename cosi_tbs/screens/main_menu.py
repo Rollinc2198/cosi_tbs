@@ -46,7 +46,7 @@ def main_menu(window, scaled_win, win_ratio):
 
         # Updating
         window.blit(globals.background, (0, 0))
-        globals.text_render(globals.fontTitle, "COSI Turn-Based Strategy", window, window.get_width() / 2, 20, 5)
+        globals.text_render(globals.fontTitle, "COSI Turn-Based Strategy", window, window.get_width() / 2, 20, 5, True)
         window.blit(text, [window.get_width() / 2 - text.get_width() / 2, 20])
         for s in all_sprites:
             s.render()
