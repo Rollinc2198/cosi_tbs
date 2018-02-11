@@ -54,3 +54,4 @@ def host_game(window, scaled_win, win_ratio):
         pygame.transform.smoothscale(window, scaled_win.get_size(), scaled_win)
         pygame.display.update()
         globals.clock.tick(60)
+
