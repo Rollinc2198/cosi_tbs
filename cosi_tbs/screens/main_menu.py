@@ -3,6 +3,7 @@ from pygame.locals import *
 
 from cosi_tbs.gui_objects import *
 from cosi_tbs import globals
+from cosi_tbs.screens import *
 
 
 def main_menu(window, scaled_win, win_ratio):
@@ -17,15 +18,22 @@ def main_menu(window, scaled_win, win_ratio):
     all_sprites = []
     all_sprites.extend(buttons)
 
+    escape = Escape().start()
+
     while True:
         # Events
-        for event in pygame.event.get():
+        events = pygame.event.get()
+
+        # Give events to escape thread
+        escape.set(events)
+
+        for e in events:
             # Emergency Exit
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                pygame.quit()
-                exit()
+            #if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
+            #    pygame.quit()
+            #    exit()
             # Checking Mouse Click
-            if event.type == MOUSEBUTTONDOWN:
+            if e.type == MOUSEBUTTONDOWN:
                 # Detect Mouse Position
                 pos_mouse = pygame.mouse.get_pos()
                 pos_mouse = (pos_mouse[0] / win_ratio[0], pos_mouse[1] / win_ratio[1])
