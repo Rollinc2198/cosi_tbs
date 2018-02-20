@@ -17,6 +17,7 @@ scaledWin = pygame.display.set_mode((infoWindow.current_w, infoWindow.current_h)
 # Variable to handle screen switching
 screen = 0
 
+
 while True:
     if screen == 0:
         globals.init()
