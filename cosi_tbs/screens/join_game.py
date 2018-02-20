@@ -35,7 +35,7 @@ def join_game(window, scaled_win, win_ratio):
                         if b.text == "Back to Main Menu":
                             return 0
                         if b.text == "Submit":
-                            thread = start_connection(text_box.text, '\x01')
+                            thread = ServerConnection(text_box.text, '\x01', "192.168.0.31", 6666)
                             while not thread.connected:
                                 if thread.fail:
                                     pygame.quit()
