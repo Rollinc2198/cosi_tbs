@@ -20,6 +20,7 @@ def main_menu(window, scaled_win, win_ratio):
 
     escape = Escape().start()
 
+
     while True:
         # Events
         events = pygame.event.get()
