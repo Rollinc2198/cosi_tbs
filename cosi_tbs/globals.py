@@ -1,4 +1,5 @@
 import pygame
+import os
 
 pygame.init()
 
@@ -11,7 +12,7 @@ fontTitle = pygame.font.Font(None, 150)
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-background = pygame.image.load("/home/carter/PycharmProjects/cosi_tbs/cosi_tbs/images/white.jpg")
+background = pygame.image.load(os.path.join("images", "white.jpg"))
 
 maxNameLength = 15
 

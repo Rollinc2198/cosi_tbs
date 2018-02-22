@@ -14,7 +14,7 @@ class ServerConnection(threading.Thread):
         self.init = init
         self.ip = ip
         self.port = port
-        self.string = ""
+        self.users = []
         self.connected = False
         self.fail = False
 
@@ -27,8 +27,14 @@ class ServerConnection(threading.Thread):
             self.socket.close()
             if data[0] == '\x01':
                 self.connected = True
+                string = ""
                 for c in range(1, len(data)):
-                    self.string += c
-            print(data)
+                    string += c
+                for c in range(0, len(string)):
+                    temp = ""
+                    while not c == '\t':
+                        temp += c
+                    self.users.append(temp)
+            print(self.users)
         except Exception:
             self.fail = True
